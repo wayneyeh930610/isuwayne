@@ -33,14 +33,12 @@ def main():
             )
         if "answer" in response:
             st.session_state.chat_history.append((user_question, response["answer"]))
-            # 限制保留近 4 筆對話紀錄
             if len(st.session_state.chat_history) > MAX_HISTORY:
                 st.session_state.chat_history = st.session_state.chat_history[-MAX_HISTORY:]
             st.write("回答：", response["answer"])
         else:
             st.write("❌ 沒有回答可以提供，請檢查向量資料庫是否正確載入。")
 
-    # 顯示過往對話
     if st.session_state.chat_history:
         st.markdown("#### 🧠 對話紀錄")
         for i, (q, a) in enumerate(st.session_state.chat_history):
@@ -53,6 +51,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-#pip install streamlit langchain langchain-community openai faiss-cpu

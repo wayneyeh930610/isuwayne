@@ -15,23 +15,23 @@ def create_vector_db_from_pdf(faiss_folder_path="faiss_index"):
         raise ValueError("❌ 找不到環境變數 OPENAI_API_KEY，請先設定你的 OpenAI API 金鑰。")
 
     # 1. 直接指定 PDF 路徑
-    temp_file_path = "../../OneDrive/桌面/義守大學.pdf"
+    temp_file_path = r"C:\Users\cindy\OneDrive\桌面\義守大學.pdf"
     if not os.path.exists(temp_file_path):
         raise FileNotFoundError(f"❌ 找不到 PDF 檔案：{temp_file_path}")
 
-    # 2. 解析 PDF #LangChain 提供的 PDF 載入器將 PDF 轉為結構化文本
+    # 2. 解析 PDF
     loader = PyPDFLoader(temp_file_path)
     docs = loader.load()
 
     # 3. 設定文本切分器
     text_splitter = RecursiveCharacterTextSplitter(
-        chunk_size=550,
-        chunk_overlap=100,
+        chunk_size=1500,
+        chunk_overlap=200,
         separators=["\n", "。", "？", "!", ":", "，", "、", " "]
     )
     texts = text_splitter.split_documents(docs)
 
-    # 4. 建立 Embeddings #將文本轉換成向量。
+    # 4. 建立 Embeddings
     embeddings_model = OpenAIEmbeddings(
         model="text-embedding-ada-002",
         openai_api_key=openai_api_key
@@ -55,4 +55,6 @@ if __name__ == "__main__":
     result = create_vector_db_from_pdf()
     print(result)
 
-#pip install langchain langchain-community faiss-cpu openai pymupdf tiktoken
+# pip install langchain langchain-community faiss-cpu openai pymupdf tiktoken
+
+
