@@ -4,7 +4,7 @@ from langchain_community.vectorstores import FAISS
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain.memory import ConversationBufferMemory
 
-def qa_agent_with_local_faiss(question, chat_history, faiss_folder_path="faiss_index"):
+def qa_agent_with_local_faiss(question, chat_history, faiss_folder_path=r"C:\Users\cindy\OneDrive\桌面\義守大學.pdf"):
     """
     使用本地端的 FAISS 向量資料庫進行查詢並產生回答（MMR 檢索方式）。
     """
